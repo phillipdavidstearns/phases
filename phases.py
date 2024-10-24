@@ -190,7 +190,6 @@ class PhaseArray():
           'data': self.status
         }
       case 'reconnect':
-        
         return {
           'type': 'reconnect',
           'data': self.status
