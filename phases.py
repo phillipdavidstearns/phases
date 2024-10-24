@@ -17,6 +17,8 @@ try:
 except Exception as e:
   logging.error(f"Unable to load CD4094: {repr(e)}")
 
+#================================================================
+
 class PhaseArray():
   def __init__(self, channels=8, refresh_rate=1/240, interval=1, steps=32, index=0):
     self._channels = channels
@@ -33,6 +35,7 @@ class PhaseArray():
     for i in range(self._channels):
       self._sequencers.append(Sequencer())
 
+  #----------------------------------------------------------------
   @property
   def status(self):
     sequencer_statuses = []
@@ -45,12 +48,14 @@ class PhaseArray():
       'sequencer_statuses': sequencer_statuses
     }
   
+  #----------------------------------------------------------------
   @property
   def is_running(self):
     if not self._output_interval:
       return False
     return self._output_interval.is_alive()
 
+  #----------------------------------------------------------------
   def update_output(self):
     register = 0
     for i in range(len(self._sequencers)):
@@ -58,12 +63,14 @@ class PhaseArray():
     if self._output:
       self._output.update(register)
 
+  #----------------------------------------------------------------
   def trigger(self):
     self._master_sequencer.update()
     for s in self._sequencers:
       if s.sync_flag and not s.is_running:
         Thread(target=s.update).start()
 
+  #----------------------------------------------------------------
   def start(self):
    # Enable the output
     if self._output:
@@ -79,6 +86,7 @@ class PhaseArray():
     for s in self._sequencers:
       s.start()
 
+  #----------------------------------------------------------------
   def stop(self):
     if self._output:
       self._output.disable()
@@ -91,6 +99,7 @@ class PhaseArray():
     for s in self._sequencers:
       s.stop()
 
+  #----------------------------------------------------------------
   async def set_sequencer(self, id, attributes):
     target = None
     if self._master_sequencer.id == id:
@@ -103,8 +112,6 @@ class PhaseArray():
     if not target:
       return
 
-    logging.debug(f"id: {id}, attributes: {repr(attributes)}")
-    
     for attribute in attributes:
       match attribute['name']:
         case 'loop_point':
@@ -137,6 +144,7 @@ class PhaseArray():
           target.stop()
           target.sync_flag = False
 
+  #----------------------------------------------------------------
   async def set_master(self, attributes):
     for attribute in attributes:
       match attribute['name']:
@@ -145,6 +153,7 @@ class PhaseArray():
           for s in self._sequencers:
             s.interval = attribute['value']
 
+  #----------------------------------------------------------------
   async def parse_message(self, message):
     #check that the message is valid JSON
     try:
@@ -157,7 +166,6 @@ class PhaseArray():
         'data': message
       }
 
-    # logging.debug(f"data: {json.dumps(data, indent=2)}")
     match data['type']:
       case 'set':
         results = []
@@ -192,6 +200,8 @@ class PhaseArray():
           'type': 'error',
           'data': f"Unknown type."
         }
+
+#================================================================
 
 if __name__ == '__main__':
   from time import sleep

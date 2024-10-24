@@ -249,7 +249,7 @@ function generateMasterSequencerControls(sequencers){
       const br = document.createElement('br');
 
       const button = document.createElement('button');
-      button.setAttribute('class','btn btn-sm btn-outline-secondary px-1 py-0 font-monospace my-1');
+      button.setAttribute('class','btn btn-sm btn-secondary px-1 py-0 font-monospace my-1');
       button.textContent = String(j+1).padStart(2, '0');
       button.addEventListener('click',() => {
         const targets = sequencers.map((s) => {
@@ -755,7 +755,7 @@ function generateSequencerControlRow(sequencer){
         const br = document.createElement('br');
 
         const button = document.createElement('button');
-        button.setAttribute('class','btn btn-sm btn-outline-secondary px-1 py-0 font-monospace my-1');
+        button.setAttribute('class','btn btn-sm btn-secondary px-1 py-0 font-monospace my-1');
         button.textContent = String(j+1).padStart(2, '0');
         button.addEventListener('click', () => {
           const message = {
