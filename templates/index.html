@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Control Panel">
+    <title>Phases</title>
+
+    <link href="./static/bootstrap.min.css" rel="stylesheet">
+    <link href="./static/custom.css" rel="stylesheet">
+
+    <script src="./static/bootstrap.bundle.min.js"></script>
+    <script src="./static/controlPanel.js"></script>
+
+  </head>
+  <body>
+    <main>
+      <div class="containter-fluid">
+        <div class="row m-2 align-items-center justify-content-center">
+          <div class="col text-center border border-1 rounded rounded-1">
+            <div class="row m-2 align-items-center justify-content-center">
+              <div class="col fw-light" id="websocket-status">
+                status
+              </div>
+              <div class="col h2">
+                Phases
+              </div>
+              <div class="col">
+                <button class="btn btn-outline-secondary" id="websocket-connect" disabled>
+                  connect
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-2 align-items-center justify-content-center">
+          <div class="col text-center border border-1 rounded rounded-1">
+            <div class="h5 m-2">
+              Master Sequencer Controls
+            </div>
+
+            <div class="row mx-0 my-2 p-0 align-items-center justify-content-center" id="master-sequencer-controls">
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-2 align-items-center justify-content-center">
+          <div class="col text-center border border-1 rounded rounded-1">
+            <div class="h5 m-2">
+              Master Controls
+            </div>
+
+            <div class="row mx-0 my-2 p-0 align-items-center justify-content-center" id="master-controls">
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-2 align-items-center justify-content-center">
+          <div class="col text-center border border-1 rounded rounded-1">
+            <div class="h5 my-2">
+              Sequencer Controls
+            </div>
+          
+            <div class="row mx-0 mb-1 p-0 align-items-center justify-content-center" id="sequencer-controls">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <input id="hostname" value="{{ hostname }}" hidden>
+    <input id="port" value="{{ port }}" hidden>
+  </body>
+</html>
